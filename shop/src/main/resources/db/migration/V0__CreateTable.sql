@@ -1,0 +1,16 @@
+set search_path to shop;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+create table customer (id uuid not null default uuid_generate_v4(), email_address varchar(255) not null, first_name varchar(255) not null, last_name varchar(255) not null, password varchar(255) not null, username varchar(255) not null, primary key (id));
+create table location (id uuid not null default uuid_generate_v4(), city varchar(255), country varchar(255), county varchar(255), name varchar(255) not null, street_address varchar(255), primary key (id));
+create table order_detail (quantity integer not null, location_id uuid not null , order_id uuid not null , placed_order_id uuid not null, product_id uuid not null, primary key (order_id, product_id));
+create table placed_order (customer_id uuid not null, id uuid not null default uuid_generate_v4(), city varchar(255), country varchar(255), county varchar(255), street_address varchar(255), primary key (id));
+create table product (price numeric(38,2) not null, weight float(53) not null, id uuid not null default uuid_generate_v4(), product_category_id uuid not null, description varchar(255) not null, image_url varchar(255) not null, name varchar(255) not null, primary key (id));
+create table product_category (id uuid not null default uuid_generate_v4(), description varchar(255) not null, name varchar(255) not null, primary key (id));
+create table stock (quantity integer not null, location_id uuid not null, product_id uuid not null, primary key (location_id, product_id));
+alter table if exists order_detail add constraint FKgnpelk7hgw6afqum0fw7q878n foreign key (placed_order_id) references placed_order;
+alter table if exists order_detail add constraint FKb8bg2bkty0oksa3wiq5mp5qnc foreign key (product_id) references product;
+alter table if exists order_detail add constraint FKdhpishbu87vx5jopqb3st2ud8 foreign key (location_id) references location;
+alter table if exists placed_order add constraint FKe2ef04uc3h5ekh5jlfv69j13b foreign key (customer_id) references customer;
+alter table if exists product add constraint FKcwclrqu392y86y0pmyrsi649r foreign key (product_category_id) references product_category;
+alter table if exists stock add constraint FK6t3m0kaf6fubuus331gf7xmn8 foreign key (location_id) references location;
+alter table if exists stock add constraint FKjghkvw2snnsr5gpct0of7xfcf foreign key (product_id) references product;

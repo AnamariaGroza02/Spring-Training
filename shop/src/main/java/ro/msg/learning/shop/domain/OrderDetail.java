@@ -19,9 +19,6 @@ public class OrderDetail {
     @Id
     private UUID productId;
 
-//    @Column(name = "shippedFrom", nullable = false)
-//    private Location shippedFrom;
-
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
