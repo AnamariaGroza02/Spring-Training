@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -18,7 +19,8 @@ public class PlacedOrder extends EntityBase{
     @JoinColumn(name = "CustomerId",nullable = false)
     private Customer customer;
 
-
+    @Column(name = "createdAt", nullable = false)
+    private LocalDateTime createdAt;
 
     @Embedded
     @AttributeOverrides({
