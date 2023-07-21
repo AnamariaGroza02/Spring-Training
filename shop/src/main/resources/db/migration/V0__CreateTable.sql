@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 create table customer (id uuid not null default uuid_generate_v4(), email_address varchar(255) not null, first_name varchar(255) not null, last_name varchar(255) not null, password varchar(255) not null, username varchar(255) not null, primary key (id));
 create table location (id uuid not null default uuid_generate_v4(), city varchar(255), country varchar(255), county varchar(255), name varchar(255) not null, street_address varchar(255), primary key (id));
 create table order_detail (quantity integer not null, location_id uuid not null , order_id uuid not null , placed_order_id uuid not null, product_id uuid not null, primary key (order_id, product_id));
-create table placed_order (customer_id uuid not null, id uuid not null default uuid_generate_v4(), city varchar(255), country varchar(255), county varchar(255), street_address varchar(255), primary key (id));
+create table placed_order (created_at timestamp(6) not null, customer_id uuid not null, id uuid not null default uuid_generate_v4(), city varchar(255), country varchar(255), county varchar(255), street_address varchar(255), primary key (id));
 create table product (price numeric(38,2) not null, weight float(53) not null, id uuid not null default uuid_generate_v4(), product_category_id uuid not null, description varchar(255) not null, image_url varchar(255) not null, name varchar(255) not null, primary key (id));
 create table product_category (id uuid not null default uuid_generate_v4(), description varchar(255) not null, name varchar(255) not null, primary key (id));
 create table stock (quantity integer not null, location_id uuid not null, product_id uuid not null, primary key (location_id, product_id));

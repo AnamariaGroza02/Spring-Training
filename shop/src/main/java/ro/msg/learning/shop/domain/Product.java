@@ -2,6 +2,7 @@ package ro.msg.learning.shop.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class Product extends EntityBase {
     @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productCategoryId",nullable = false)
     private ProductCategory productCategory;
 
@@ -39,8 +40,5 @@ public class Product extends EntityBase {
 
     @OneToMany(mappedBy = "product")
     private Set<Stock> stocks;
-
-
-
 
 }

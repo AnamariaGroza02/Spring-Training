@@ -1,6 +1,8 @@
 package ro.msg.learning.shop.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 import java.util.UUID;
@@ -9,5 +11,6 @@ import java.util.UUID;
 @MappedSuperclass
 public class EntityBase {
     @Id
+    @GeneratedValue
     private UUID id;
 }
