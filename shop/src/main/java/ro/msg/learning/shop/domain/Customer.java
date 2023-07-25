@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer extends EntityBase{
+public class Customer extends EntityBase {
 
     @Column(name = "firstName", nullable = false)
     private String firstName;

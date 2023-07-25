@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@AttributeOverride(name = "identifier", column = @Column(name = "VIN"))
-public class Location extends EntityBase{
+public class Location extends EntityBase {
 
     @OneToMany(mappedBy = "shippedFrom")
     private Set<OrderDetail> orderDetails;

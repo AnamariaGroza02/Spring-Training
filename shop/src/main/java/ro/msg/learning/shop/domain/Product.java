@@ -1,17 +1,17 @@
 package ro.msg.learning.shop.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 
 @Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -32,13 +32,13 @@ public class Product extends EntityBase {
     private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productCategoryId",nullable = false)
+    @JoinColumn(name = "productCategoryId", nullable = false)
     private ProductCategory productCategory;
 
     @OneToMany(mappedBy = "product")
     private Set<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "product")
-    private Set<Stock> stocks;
+    private List<Stock> stocks;
 
 }

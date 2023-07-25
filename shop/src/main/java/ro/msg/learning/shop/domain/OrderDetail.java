@@ -13,29 +13,23 @@ import java.util.UUID;
 @Entity
 @IdClass(OrderDetailId.class)
 public class OrderDetail {
-    @Id
-    private UUID orderId;
-
-    @Id
-    private UUID productId;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-
-
+    @Id
     @ManyToOne
-    @JoinColumn(name = "productId",nullable = false)
+    @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
+    @Id
     @ManyToOne
-    @JoinColumn(name = "placedOrderId",nullable = false)
+    @JoinColumn(name = "orderId", nullable = false)
     private PlacedOrder placedOrder;
 
     @ManyToOne
-    @JoinColumn(name = "locationId",nullable = false)
+    @JoinColumn(name = "locationId")
     private Location shippedFrom;
-
 
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping("/shop/product")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -25,14 +25,12 @@ public class ProductController {
     ProductCategoryService productCategoryService;
 
 
-
     @GetMapping
     public ResponseEntity<List<ProductDto>> getProducts() {
         List<Product> products = productService.getProducts();
-//        List<ProductDto> productDtos = products.stream().forEach(product -> ProductDtoMapper.INSTANCE.toProductDto(product,product.getProductCategory()));
         List<ProductDto> productDtos = new ArrayList<>();
-        for(Product product:products){
-            productDtos.add(ProductDtoMapper.INSTANCE.toProductDto(product,product.getProductCategory()));
+        for (Product product : products) {
+            productDtos.add(ProductDtoMapper.INSTANCE.toProductDto(product, product.getProductCategory()));
         }
         return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
@@ -41,33 +39,32 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id) {
         Product product = productService.getProductById(id);
         ProductCategory productCategory = product.getProductCategory();
-        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product,productCategory), HttpStatus.OK);
+        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product, productCategory), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
         Product productEntity = ProductDtoMapper.INSTANCE.toProduct(productDto);
-        ProductCategory productCategory = ProductDtoMapper.INSTANCE.toProduct(productDto).getProductCategory();
+        ProductCategory productCategory = productEntity.getProductCategory();
         productCategoryService.createProductCategory(productCategory);
         Product product = productService.createProduct(productEntity);
 
-        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product,productCategory), HttpStatus.CREATED);
+        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product, productCategory), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody ProductDto productDto){
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody ProductDto productDto) {
         Product productEntity = ProductDtoMapper.INSTANCE.toProduct(productDto);
         ProductCategory productCategory = ProductDtoMapper.INSTANCE.toProduct(productDto).getProductCategory();
         productCategoryService.createProductCategory(productCategory);
-        Product product = productService.updateProduct(id,productEntity);
+        Product product = productService.updateProduct(id, productEntity);
 
-        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product,productCategory), HttpStatus.CREATED);
+        return new ResponseEntity<>(ProductDtoMapper.INSTANCE.toProductDto(product, productCategory), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable UUID id){
+    public void deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
-        return new ResponseEntity<>("Product is deleted successsfully", HttpStatus.OK);
 
     }
 

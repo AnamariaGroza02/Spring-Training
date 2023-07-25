@@ -22,11 +22,11 @@ public class Stock {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "productId",nullable = false)
+    @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "locationId",nullable = false)
+    @JoinColumn(name = "locationId", nullable = false)
     private Location location;
 
 }
