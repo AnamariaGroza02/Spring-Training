@@ -6,7 +6,9 @@ import ro.msg.learning.shop.domain.Stock;
 import ro.msg.learning.shop.domain.StockId;
 import ro.msg.learning.shop.repository.StockRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Data
@@ -36,5 +38,15 @@ public class StockServiceImpl implements StockService {
             return stock.get();
         }
         return new Stock();
+    }
+
+    @Override
+    public Stock findStockWithMaxProductStock(UUID productID, Integer quantity){
+        return stockRepository.findStockWithMaxProductStock(productID,quantity);
+    }
+
+    @Override
+    public List<Stock> findStocksSameLocationApproach(UUID productID, Integer quantity){
+        return stockRepository.findStocksSameLocationApproach(productID,quantity);
     }
 }
